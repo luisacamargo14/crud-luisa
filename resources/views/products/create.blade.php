@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Primer Crud | Listado de productos</title>
+    <title>Mi Primer Crud | Creación Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
       .pagination .page-link {
@@ -39,10 +39,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('products.index')}}">Listado de Productos</a>
+          <a class="nav-link " aria-current="page" href="{{route('products.index')}}">Listado de Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " aria-current="page" href="{{route('products.create')}}">Creación de Productos</a>
+          <a class="nav-link active" aria-current="page" href="{{route('products.create')}}">Creación de Productos</a>
         </li>
       
       </ul>
@@ -56,35 +56,33 @@
 
 
 <div class="container mt-5">
-    <p class="h4 mt-2 mb-4">Listado de productos</p>
-    <div class="table-responsive">
-        <table class="table table-dark text-center">
-            <thead>
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">imagen</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($products as $produc)
-                <tr>
-                    <th scope="row">{{$produc->id}}</th>
-                    <th scope="row"><img src="{{$produc->imagen}}" alt="{{$produc->name}}"></th>
-                    <td>{{ucfirst($produc->name)}}</td>
-                    <td>$ {{ number_format($produc->price, 0, ',', '.') }} COP</td>
-                    <td>
-                        <button class="btn btn-warning">Editar</button>
-                        <button class="btn btn-success">Detalle</button>
-                        <button class="btn btn-danger">Eliminar</button>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        {{$products->links('vendor.pagination.bootstrap-5')}}
+    <p class="h4 mt-2 mb-4">Creación de productos</p>
+
+    <div class="card">
+        <div class="card-body">
+           <form action="{{ route('products.store') }}" method="POST">
+    @csrf
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea name="description" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input type="number" name="price" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Crear producto
+    </button>
+</form>
+        </div>
     </div>
 </div>
     
